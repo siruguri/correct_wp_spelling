@@ -1,7 +1,7 @@
 === Correct wordpress Spelling ===
 Contributors: ssiruguri
 Tags: tutorial
-License: GPLv2
+License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 Requires at least: 4.0
 Tested up to: 4.7
