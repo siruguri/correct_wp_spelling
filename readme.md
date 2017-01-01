@@ -1,18 +1,19 @@
-=== Correct wordpress Spelling ===
-Contributors: ssiruguri
-Tags: tutorial
-License: GPLv2
-License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
-Requires at least: 4.0
-Tested up to: 4.7
+# Correct wordpress Spelling
+
+* Contributors: ssiruguri
+* Tags: tutorial
+* License: GPLv2
+* License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+* Requires at least: 4.0
+* Tested up to: 4.7
 
 Changes 'wordpress' to 'WordPress' in all your posts.
 
-== Description ==
+# Description
 
 This plugin changes the word 'wordpress' to correctly spell it as 'WordPress' in all your posts.
 
-== Installation ==
+# Installation
 
 This section describes how to install the plugin and get it working.
 
