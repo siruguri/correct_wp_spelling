@@ -2,86 +2,32 @@
 /*
  * Plugin Name: Correct wordpress Spelling
  * Plugin URI: https://github.com/siruguri/correct_wp_spelling
- * Description: Adds a [table] shortcode that generates a spreadsheet (uses theme's CSS)
+ * Description: Changes 'wordpress' to 'WordPress' in all posts
  * Version: 0.1
  * Author: Sameer Siruguri
- * Author URI: http://sameer.siruguri.net/blog/
- * License: GPL2
+ * Author URI: http://www.dstrategies.org/
+ * License: GPLv2
 */
 
-function simple_table_wrap($atts, $content = null) {
-  $max_cols = 0;
+/* Copyright 2017 Sameer Siruguri (email: sameers.public@gmail.com)
+(Correct wordpress Spelling) is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+any later version.
+ 
+Correct wordpress Spelling is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+ 
+You should have received a copy of the GNU General Public License
+along with Correct wordpress Spelling. If not, see https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+*/
 
-  $ret_val=<<<EODOC
-<div class="simple_table">
-<table>
-<tbody>
-<tr>
-<td>@</td>
-EODOC;
-
-  $rows = explode("\n", $content);
-  $row_letter='A';
-  $row_string_list=array();
-
-  foreach ($rows as $line) {
-
-    // Ignore the plain <p> that Wordpress/TinyMCE adds to lines
-    if(preg_match("#^\s*<(/)?p>\s*$#", $line)) {
-      continue;
-    }
-
-    $cells = preg_split("/\s*\|\s*/", $line);
-
-    // Start initializing the string that will generate this row
-    $row_string = "";
-    $row_string .= ("<tr><td>".$row_letter."</td>");
-
-    // Keep track of how wide the table is
-    if (count($cells) > $max_cols) {
-      $max_cols = count($cells);
-    }
-
-    foreach ($cells as $value) {
-      $value = preg_replace("#</?p>#", "", $value);
-
-      // Because we are splitting on the pipe symbol, there might be leading whitespace
-
-      $value = preg_replace("/^\s*/", "", $value);
-
-      $row_string .= '<td id="cellvalue">'. $value . '</td>';
-    }
-
-    $row_letter ++;
-    array_push ($row_string_list, array('length' => count($cells), 'string' => $row_string ));
-  }
-
-  // construct the actual html from the indiv row strings
-  $count=1;
-
-  for ($i=1; $i <= $max_cols; $i++) {
-    $ret_val .= "<td>" . $i . "</td>";
-  }
-  $ret_val .= "</tr>";
-
-  $final_row_string_list = array_map(function($x) use($max_cols) {
-      for($i=0; $i<$max_cols-$x['length']; $i++) {
-	$x["string"].="<td id='cellvalue'></td>";
-      }
-      $x['string'].="</tr>";
-      return $x['string'];
-
-    }, $row_string_list);
-
-  $ret_val .= implode("", $final_row_string_list);
-
-  $ret_val .= '</tbody></table></div>';
-  return $ret_val; 
+function correct_spelling($text) {
+  return str_replace('wordpress', 'WordPress', $text);
 }
 
-add_shortcode('simple_table', 'simple_table_wrap');
-/* 
-
-*/
+add_filter('the_content', 'correct_spelling');
 
 ?>
